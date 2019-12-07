@@ -1,0 +1,9 @@
+pipeline 
+{
+agent any
+stages
+{
+stage ('cloning code')
+git 'https://github.com/sandesh421/maven-project' 
+}
+}
