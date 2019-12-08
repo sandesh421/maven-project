@@ -9,16 +9,22 @@ pipeline
 		{ 
 	     git 'https://github.com/sandesh421/maven-project' 
         }
-      }
-            stage ('Build the code')
+      } 
+     stage ('install code')
 	 {
-		steps
+      steps
 		{
-			withAnt(jdk: 'localjdk') {
-         sh 'ant build' }
-}
-	
-		}
-		
-     }
+			withMaven(jdk: 'localjdk', maven: 'localmaven') {
+			sh 'mvn install'}
+		}	
+    
 	}
+ {
+    stage ('deploy to tomcat'){
+            sshagent (credentials: ['deploy-dev']) {
+            sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@18.189.6.46:/var/lib/tomcat/webapps'
+			}
+  }
+  }
+}	
+}
