@@ -1,21 +1,22 @@
 pipeline{
-agent any
-stages
+      agent any
+       stages
 {
-   stage ('scm checkout')
+      stage ('scm checkout')
    {
-       steps { git 'https://github.com/sandesh421/maven-project' 
-  }
+       steps { 
+	   git 'https://github.com/sandesh421/maven-project' 
+         }
    }
-}
+        }
         {stage ('compile code')
-{
- step
- {
+      {
+       step
+    {
      withMaven(jdk: 'localjdk', maven: 'localmaven') 
     {
     sh 'mvn compile'
-    }
+    } 
    }
  }
  }
