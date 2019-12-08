@@ -9,33 +9,16 @@ pipeline
 		{ 
 	     git 'https://github.com/sandesh421/maven-project' 
         }
-      } 
-     stage ('compile code')
-	 {
-      steps
-		{
-			withMaven(jdk: 'localjdk', maven: 'localmaven') {
-			sh 'mvn compile'}
-		}	
-    
-	}
-     stage ('test the code')
+      }
+            stage ('Build the code')
 	 {
 		steps
 		{
-			withMaven(jdk: 'localjdk', maven: 'localmaven') {
-			sh 'mvn test'}
+			withAnt(jdk: 'localjdk') {
+         sh 'ant build' }
+}
 	
 		}
+		
+     }
 	}
-	 stage ('Build the code')
-	 {
-		steps
-		{
-			withMaven(jdk: 'localjdk', maven: 'localmaven') {
-			sh 'mvn package'}
-	
-		}
-	}
-}
-}
