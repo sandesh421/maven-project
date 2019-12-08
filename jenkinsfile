@@ -1,28 +1,32 @@
-pipeline{
-      agent any
-       stages
+pipeline
 {
-      stage ('scm checkout')
-   {
-       steps { 
-	   git 'https://github.com/sandesh421/maven-project' 
-         }
-   } 
-stage ('compile code'){
-steps
-    {
-     withMaven(jdk: 'localjdk', maven: 'localmaven') {
-    sh 'mvn compile'
-    } 
-   }
- stage ('test the code'){
- steps
-    {
-     withMaven(jdk: 'localjdk', maven: 'localmaven') {
-    sh 'mvn test'
+   agent any
+    stages
+	{
+      stage ('git clone')
+	  { 
+		steps 
+		{ 
+	     git 'https://github.com/sandesh421/maven-project' 
+        }
+      } 
+     stage ('compile code')
+	 {
+      steps
+		{
+			withMaven(jdk: 'localjdk', maven: 'localmaven') {
+			sh 'mvn compile'}
+		}	
+    
 	}
- }
-}
-}
+     stage ('test the code')
+	 {
+		steps
+		{
+			withMaven(jdk: 'localjdk', maven: 'localmaven') {
+			sh 'mvn test'}
+	
+		}
+	}
 }
 }
