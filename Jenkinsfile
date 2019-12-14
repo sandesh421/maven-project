@@ -1,8 +1,8 @@
 pipeline {
     agent any
     stages {
-        stage('scm Checkout'){
-          git  'https://github.com/sandesh421/maven-project'
+        stage('scm checkout'){
+          git 'https://github.com/sandesh421/maven-project'
         }
   }
     {
