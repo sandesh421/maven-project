@@ -1,13 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage ('git clone')
-        {
-          git 'https://github.com/sandesh421/maven-project' 
+        stage('SCM Checkout'){
+          git  'https://github.com/sandesh421/maven-project'
         }
   }
     {
         stage ('Compile Stage') {
+
             steps {
                 withMaven(maven : 'localmaven') {
                     sh 'mvn clean compile'
@@ -30,8 +30,8 @@ pipeline {
         }
         stage ('deploy to dev') {
              steps {
-                  sshagent(['9a2b1964-97c6-4c30-8241-af818fa62c0a']) {
-                  sh 'scp -o StrictHostKeyCking=no */target/*.war ec2-user@172.31.12.220:/var/lib/tomcat/webapps'
+                  sshagent(['d5763664-1a68-492e-a9c3-0f111fe3895f']) {
+                  sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.24.198:/var/lib/tomcat/webapps'
 } } }       
 }
 }
